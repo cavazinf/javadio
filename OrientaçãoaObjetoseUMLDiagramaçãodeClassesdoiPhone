@@ -1,0 +1,42 @@
+public class IPhone {
+    private String modelo;
+    private int capacidade;
+    private boolean ligado;
+    private int nivelBateria;
+
+    public IPhone(String modelo, int capacidade) {
+        this.modelo = modelo;
+        this.capacidade = capacidade;
+        this.ligado = false;
+        this.nivelBateria = 0;
+    }
+
+    public void ligar() {
+        this.ligado = true;
+        System.out.println("iPhone ligado.");
+    }
+
+    public void desligar() {
+        this.ligado = false;
+        System.out.println("iPhone desligado.");
+    }
+
+    public void carregarBateria() {
+        this.nivelBateria = 100;
+        System.out.println("Bateria carregada.");
+    }
+
+    public void fazerLigacao(String numero) {
+        if (ligado && nivelBateria >= 10) {
+            System.out.println("Chamando " + numero);
+        } else {
+            System.out.println("Não é possível fazer a chamada.");
+        }
+    }
+}
+
+public class Pessoa {
+    private String nome;
+    private int idade;
+
+    public Pessoa(String

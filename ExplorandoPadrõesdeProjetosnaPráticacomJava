@@ -1,0 +1,42 @@
+public class Configuracao {
+    private static Configuracao instanciaUnica;
+    
+    private String servidorBancoDeDados;
+    private String usuarioBancoDeDados;
+    private String senhaBancoDeDados;
+    
+    private Configuracao() {
+        // Construtor privado para evitar instância direta
+    }
+    
+    public static Configuracao getInstance() {
+        if (instanciaUnica == null) {
+            instanciaUnica = new Configuracao();
+        }
+        return instanciaUnica;
+    }
+    
+    public void setBancoDeDados(String servidor, String usuario, String senha) {
+        this.servidorBancoDeDados = servidor;
+        this.usuarioBancoDeDados = usuario;
+        this.senhaBancoDeDados = senha;
+    }
+    
+    public void exibirConfiguracoes() {
+        System.out.println("Servidor de Banco de Dados: " + servidorBancoDeDados);
+        System.out.println("Usuário do Banco de Dados: " + usuarioBancoDeDados);
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Configuracao configuracao = Configuracao.getInstance();
+        
+        configuracao.setBancoDeDados("localhost", "admin", "senha123");
+        
+        Configuracao outraConfiguracao = Configuracao.getInstance();
+        
+        outraConfiguracao.exibirConfiguracoes();
+    }
+}

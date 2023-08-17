@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class SistemaValidacaoProcessoSeletivo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao Sistema de Validação de Processo Seletivo");
+        
+        System.out.print("Informe sua idade: ");
+        int idade = scanner.nextInt();
+        
+        System.out.print("Informe a nota da prova: ");
+        double notaProva = scanner.nextDouble();
+        
+        if (idade >= 18 && notaProva >= 7.0) {
+            System.out.println("Parabéns! Você foi aprovado no processo seletivo.");
+        } else {
+            System.out.println("Infelizmente, você não atende aos critérios de aprovação.");
+        }
+        
+        scanner.close();
+    }
+}

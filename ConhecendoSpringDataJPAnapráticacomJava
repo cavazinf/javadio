@@ -1,0 +1,83 @@
+// MAVEN
+
+<dependencies>
+    <!-- Outras dependências do Spring -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+</dependencies>
+
+Product
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;
+    private double price;
+
+    // getters e setters
+}
+
+
+Repository
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+}
+
+
+main
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Main implements CommandLineRunner {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        Product product1 = new Product();
+        product1.setName("Produto A");
+        product1.setPrice(100.0);
+
+        Product product2 = new Product();
+        product2.setName("Produto B");
+        product2.setPrice(200.0);
+
+        productRepository.save(product1);
+        productRepository.save(product2);
+
+        Iterable<Product> products = productRepository.findAll();
+        for (Product product : products) {
+            System.out.println("ID: " + product.getId() + ", Nome: " + product.getName() + ", Preço: " + product.getPrice());
+        }
+    }
+}

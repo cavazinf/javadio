@@ -1,0 +1,101 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Cliente {
+    private String nome;
+    private String cpf;
+
+    public Cliente(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+}
+
+class Conta {
+    private int numero;
+    private Cliente titular;
+    private double saldo;
+
+    public Conta(int numero, Cliente titular) {
+        this.numero = numero;
+        this.titular = titular;
+        this.saldo = 0.0;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public Cliente getTitular() {
+        return titular;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void depositar(double valor) {
+        saldo += valor;
+    }
+
+    public void sacar(double valor) {
+        if (valor <= saldo) {
+            saldo -= valor;
+        } else {
+            System.out.println("Saldo insuficiente.");
+        }
+    }
+}
+
+class Banco {
+    private List<Conta> contas;
+
+    public Banco() {
+        contas = new ArrayList<>();
+    }
+
+    public void cadastrarConta(Conta conta) {
+        contas.add(conta);
+    }
+
+    public Conta buscarConta(int numero) {
+        for (Conta conta : contas) {
+            if (conta.getNumero() == numero) {
+                return conta;
+            }
+        }
+        return null;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Banco banco = new Banco();
+
+        Cliente cliente1 = new Cliente("Maria", "123.456.789-00");
+        Cliente cliente2 = new Cliente("João", "987.654.321-00");
+
+        Conta conta1 = new Conta(1, cliente1);
+        Conta conta2 = new Conta(2, cliente2);
+
+        banco.cadastrarConta(conta1);
+        banco.cadastrarConta(conta2);
+
+        conta1.depositar(1000.0);
+        conta1.sacar(500.0);
+
+        conta2.depositar(1500.0);
+        conta2.sacar(200.0);
+
+        System.out.println("Saldo da conta de " + cliente1.getNome() + ": R$" + conta1.getSaldo());
+        System.out.println("Saldo da conta de " + cliente2.getNome() + ": R$" + conta2.getSaldo());
+    }
+}
